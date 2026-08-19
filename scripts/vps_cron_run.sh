@@ -53,7 +53,6 @@ PROMPT_EOF
 
 claude -p "$PROMPT" \
   --allowedTools "Bash Read Write Edit Glob Grep WebSearch WebFetch" \
-  --permission-mode bypassPermissions \
   >> "$LOG_FILE" 2>&1
 
 echo "Run finished, log: $LOG_FILE"
