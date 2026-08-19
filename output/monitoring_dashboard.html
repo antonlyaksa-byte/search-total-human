@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мониторинг: Total Experience & Человекоцентричность</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1: #fcfcfb;
+    --surface-2: #f5f5f3;
+    --surface-card: #ffffff;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted: #8a8985;
+    --border: #e0dfdb;
+    --series-1: #2a78d6;
+    --series-2: #eb6834;
+    --series-1-bg: #e8f0fe;
+    --series-2-bg: #fce8e6;
+    --series-1-light: #b8d4f0;
+    --series-2-light: #f5c4b8;
+    --accent: #2a78d6;
+    --tag-article: #1baf7a;
+    --tag-report: #4a3aa7;
+    --tag-portal: #eda100;
+    --tag-press: #e87ba4;
+    --shadow: 0 1px 3px rgba(0,0,0,.08);
+    --radius: 8px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --surface-2: #242423;
+      --surface-card: #2a2a29;
+      --text-primary: #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted: #8a8985;
+      --border: #3a3a38;
+      --series-1: #3987e5;
+      --series-2: #d95926;
+      --series-1-bg: #1e2d40;
+      --series-2-bg: #3a2218;
+      --series-1-light: #2a4a6e;
+      --series-2-light: #5a3020;
+      --accent: #3987e5;
+      --tag-article: #199e70;
+      --tag-report: #9085e9;
+      --tag-portal: #c98500;
+      --tag-press: #d55181;
+      --shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #242423;
+    --surface-card: #2a2a29;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #8a8985;
+    --border: #3a3a38;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-1-bg: #1e2d40;
+    --series-2-bg: #3a2218;
+    --series-1-light: #2a4a6e;
+    --series-2-light: #5a3020;
+    --accent: #3987e5;
+    --tag-article: #199e70;
+    --tag-report: #9085e9;
+    --tag-portal: #c98500;
+    --tag-press: #d55181;
+    --shadow: 0 1px 3px rgba(0,0,0,.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--surface-1);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: .9rem;
+    margin-bottom: 24px;
+  }
+
+  /* Stat tiles */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat-tile {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .stat-tile .label {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .stat-tile .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .stat-tile .detail {
+    font-size: .8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .filter-group {
+    display: flex;
+    gap: 4px;
+  }
+  .filter-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: .82rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all .15s;
+    font-family: inherit;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+  .filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .filter-btn.active-tx {
+    background: var(--series-1);
+    color: #fff;
+    border-color: var(--series-1);
+  }
+  .filter-btn.active-hc {
+    background: var(--series-2);
+    color: #fff;
+    border-color: var(--series-2);
+  }
+  .search-input {
+    flex: 1;
+    min-width: 200px;
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: .82rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text-muted); }
+
+  /* Chart section */
+  .chart-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 700px) { .chart-section { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .chart-card h3 {
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+  }
+  .bar-chart { display: flex; flex-direction: column; gap: 8px; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-label {
+    font-size: .8rem;
+    width: 140px;
+    text-align: right;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+  }
+  .bar-track {
+    flex: 1;
+    height: 24px;
+    background: var(--surface-2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width .4s ease;
+    position: relative;
+  }
+  .bar-fill-tx { background: var(--series-1); }
+  .bar-fill-hc { background: var(--series-2); }
+  .bar-value {
+    font-size: .75rem;
+    font-weight: 600;
+    width: 28px;
+    text-align: left;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+  }
+
+  /* Table */
+  .table-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .table-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .table-header h3 {
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .count-badge {
+    font-size: .75rem;
+    background: var(--surface-2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: var(--text-muted);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem;
+  }
+  thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+    background: var(--surface-2);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: var(--text-primary); }
+  thead th .sort-arrow { margin-left: 4px; opacity: .4; }
+  thead th.sorted .sort-arrow { opacity: 1; }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .1s;
+  }
+  tbody tr:hover { background: var(--surface-2); }
+  tbody td { padding: 10px 12px; vertical-align: top; }
+  .topic-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: .72rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .topic-tx { background: var(--series-1-bg); color: var(--series-1); }
+  .topic-hc { background: var(--series-2-bg); color: var(--series-2); }
+  .type-tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: .7rem;
+    font-weight: 500;
+  }
+  .type-article { background: rgba(27,175,122,.12); color: var(--tag-article); }
+  .type-report { background: rgba(74,58,167,.12); color: var(--tag-report); }
+  .type-portal { background: rgba(237,161,0,.12); color: var(--tag-portal); }
+  .type-press { background: rgba(232,123,164,.12); color: var(--tag-press); }
+  .title-cell { max-width: 320px; }
+  .title-cell a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .title-cell a:hover { color: var(--accent); text-decoration: underline; }
+  .summary-cell {
+    color: var(--text-secondary);
+    font-size: .78rem;
+    max-width: 400px;
+  }
+  .source-cell { color: var(--text-secondary); white-space: nowrap; }
+  .lang-badge {
+    font-size: .68rem;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+  }
+  .empty-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: .9rem;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+    font-size: .78rem;
+    color: var(--text-secondary);
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: .75rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: .8rem;
+    color: var(--text-secondary);
+    z-index: 10;
+    font-family: inherit;
+  }
+
+  /* Responsive table wrapper */
+  .table-scroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему">&#9790; / &#9788;</button>
+
+<h1>Мониторинг: Total Experience & Человекоцентричность</h1>
+<p class="subtitle">База знаний — статьи, отчёты и исследования. Обновляется еженедельно.</p>
+
+<div class="stats-row" id="statsRow"></div>
+
+<div class="chart-section">
+  <div class="chart-card">
+    <h3>По темам</h3>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-swatch" style="background:var(--series-1)"></span>Total Experience</span>
+      <span class="legend-item"><span class="legend-swatch" style="background:var(--series-2)"></span>Человекоцентричность</span>
+    </div>
+    <div id="topicChart" class="bar-chart"></div>
+  </div>
+  <div class="chart-card">
+    <h3>По типу материала</h3>
+    <div id="typeChart" class="bar-chart"></div>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filter-group" id="topicFilters">
+    <button class="filter-btn active" data-filter="all" onclick="setTopicFilter('all', this)">Все</button>
+    <button class="filter-btn" data-filter="tx" onclick="setTopicFilter('tx', this)">Total Experience</button>
+    <button class="filter-btn" data-filter="hc" onclick="setTopicFilter('hc', this)">Человекоцентричность</button>
+  </div>
+  <div class="filter-group" id="langFilters">
+    <button class="filter-btn active" data-filter="all" onclick="setLangFilter('all', this)">RU + EN</button>
+    <button class="filter-btn" data-filter="RU" onclick="setLangFilter('RU', this)">RU</button>
+    <button class="filter-btn" data-filter="EN" onclick="setLangFilter('EN', this)">EN</button>
+  </div>
+  <input type="text" class="search-input" placeholder="Поиск по названию, содержанию, источнику..." oninput="onSearch(this.value)" id="searchInput">
+</div>
+
+<div class="table-card">
+  <div class="table-header">
+    <h3>Источники</h3>
+    <span class="count-badge" id="countBadge">0 записей</span>
+  </div>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th onclick="sortBy('topic')">Тема <span class="sort-arrow">&#8597;</span></th>
+          <th onclick="sortBy('title')">Название <span class="sort-arrow">&#8597;</span></th>
+          <th onclick="sortBy('type')">Тип <span class="sort-arrow">&#8597;</span></th>
+          <th>Краткое содержание</th>
+          <th onclick="sortBy('source')">Источник <span class="sort-arrow">&#8597;</span></th>
+          <th onclick="sortBy('lang')">Язык <span class="sort-arrow">&#8597;</span></th>
+          <th onclick="sortBy('year')">Год <span class="sort-arrow">&#8597;</span></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+  <div class="empty-state" id="emptyState" style="display:none">Ничего не найдено. Попробуйте изменить фильтры.</div>
+</div>
+
+<div class="footer">
+  <span>Последнее обновление: <span id="lastUpdate"></span></span>
+  <span>Проект: Search Total Human</span>
+</div>
+
+<script>
+const DATA = [
+  {id:1, topic:'Total Experience', title:'Total Experience Research Report (KPMG)', type:'Отчёт', summary:'Исследование KPMG о стратегии Total Experience (TX) — объединение CX, EX, UX и MX для единого опыта взаимодействия.', source:'KPMG', url:'https://kpmg.com/us/en/articles/2026/total-experience-research-report.html', lang:'EN', year:'2026'},
+  {id:2, topic:'Total Experience', title:'Total Experience (TX): A Strategic Technology Trend', type:'Статья', summary:'Gartner определил TX как ключевой технологический тренд. TX объединяет customer experience, employee experience, user experience и multiexperience.', source:'Gartner / EvonTech', url:'https://evontech.com/component/easyblog/total-experience-tx-a-strategic-technology-trend.html', lang:'EN', year:'2022'},
+  {id:3, topic:'Total Experience', title:'Top Strategic Technology Trends for 2022: Total Experience', type:'Отчёт', summary:'Оригинальный отчёт Gartner, где Total Experience впервые назван стратегическим технологическим трендом года.', source:'Gartner', url:'https://www.gartner.com/en/documents/4006928', lang:'EN', year:'2022'},
+  {id:4, topic:'Total Experience', title:'Why a Total Experience (TX) Strategy Matters', type:'Статья', summary:'Анализ: стратегия TX — рост удержания клиентов, вовлечённость сотрудников, снижение издержек.', source:'UNRVLD', url:'https://www.unrvld.com/trends-insights/why-adopting-a-total-experience-tx-strategy-matters', lang:'EN', year:'2023'},
+  {id:5, topic:'Total Experience', title:'What is Total Experience? Definition + strategies', type:'Статья', summary:'Комплексный гайд Zendesk: определение TX, составляющие (CX+EX+UX+MX), практические стратегии внедрения.', source:'Zendesk', url:'https://www.zendesk.com/blog/total-experience/', lang:'EN', year:'2024'},
+  {id:6, topic:'Total Experience', title:'Global Customer Experience Excellence 2025–2026', type:'Отчёт', summary:'Глобальный отчёт KPMG об эволюции клиентского опыта, включая элементы Total Experience.', source:'KPMG', url:'https://assets.kpmg.com/content/dam/kpmg/cn/pdf/en/2025/12/global-customer-experience-excellence-2025-2026.pdf', lang:'EN', year:'2025'},
+  {id:7, topic:'Total Experience', title:'Total Experience — Обобщённый опыт', type:'Статья', summary:'Обзор концепции Total Experience на российском рынке: определение, компоненты, примеры внедрения.', source:'CNews', url:'https://www.cnews.ru/book/Total_Experience', lang:'RU', year:'2023'},
+  {id:8, topic:'Total Experience', title:'Total Experience – инструмент для стратегии бизнеса', type:'Статья', summary:'Практическое руководство: как компании-лидеру использовать стратегию Total Experience.', source:'Workspace.ru', url:'https://workspace.ru/blog/kak-kompanii-lideru-otrasli-ispolzovat-strategiyu-obshchego-opyta-total-experience/', lang:'RU', year:'2024'},
+  {id:9, topic:'Total Experience', title:'20+ элементов Total Experience', type:'Статья', summary:'Детальный разбор всех компонентов TX: от customer journey до employee experience, с практическими примерами.', source:'inForce', url:'https://invisibleforce.ru/blog/20-elementov-total-experience-iz-chego-sostoit-vseobemlyushhij-opyt/', lang:'RU', year:'2024'},
+  {id:10, topic:'Total Experience', title:'Стратегия увеличения продаж Total Experience', type:'Статья', summary:'Как TX-подход влияет на продажи: интеграция клиентского и сотруднического опыта для роста конверсий.', source:'Mediaten', url:'https://mediaten.ru/ru/blog/total-experience', lang:'RU', year:'2024'},
+  {id:11, topic:'Total Experience', title:'Total Experience: Interlinking UX, CX, MX, and EX', type:'Статья', summary:'Взаимосвязь четырёх дисциплин внутри Total Experience и синергия между ними.', source:'SaveDelete', url:'https://savedelete.com/news/technology/total-experience/425175/', lang:'EN', year:'2023'},
+  {id:12, topic:'Человекоцентричность', title:'Индекс человекоцентричности компаний 2023 (Росатом)', type:'Отчёт', summary:'Пилотное исследование: 120 компаний из России, СНГ и БРИКС. Средний индекс — 52 балла. Субиндексы: Сотрудники (57), Сообщество (46). С BCG и ВШЭ.', source:'Корпоративная Академия Росатома', url:'https://research.rosatomimpact.com/', lang:'RU', year:'2023'},
+  {id:13, topic:'Человекоцентричность', title:'Индекс человекоцентричности компаний 2024', type:'Отчёт', summary:'Второй ежегодный отчёт — расширенная выборка, обновлённая методология.', source:'Росатом / CFO-Russia', url:'https://www.cfo-russia.ru/issledovaniya/?article=86982', lang:'RU', year:'2024'},
+  {id:14, topic:'Человекоцентричность', title:'Росатом: результаты индекса человекоцентричности', type:'Пресс-релиз', summary:'Официальная публикация результатов: методология, ключевые выводы, планы развития индекса.', source:'Росатом / Impact Mission', url:'https://impact-mission.org/ru/blog/rosatom-presents-results-of-companies-human-centricity-index/', lang:'RU', year:'2023'},
+  {id:15, topic:'Человекоцентричность', title:'Портал исследований по человекоцентричности (Росатом)', type:'Портал', summary:'Портал Корпоративной Академии Росатома: методологии, данные, публикации по человекоцентричности.', source:'Корпоративная Академия Росатома', url:'https://rosatom-academy.ru/media/research/chelovekocentrichnost/', lang:'RU', year:'2024'},
+  {id:16, topic:'Человекоцентричность', title:'Человекоцентричность – стратегия нового времени', type:'Статья', summary:'Обзор: человекоцентричность как новая парадигма управления, примеры из российского бизнеса.', source:'Комсомольская правда', url:'https://www.kp.ru/daily/27479/4736146/', lang:'RU', year:'2024'},
+  {id:17, topic:'Человекоцентричность', title:'Тренд на человекоцентричность в HRTech', type:'Статья', summary:'Технологические решения для человекоцентричного HR: платформы, инструменты, кейсы.', source:'TAdviser', url:'https://www.tadviser.ru/', lang:'RU', year:'2024'},
+  {id:18, topic:'Человекоцентричность', title:'HR-тренды 2025: автоматизация и человекоцентричность', type:'Статья', summary:'Прогноз: человекоцентричность как ключевой HR-тренд наряду с автоматизацией.', source:'HRBox', url:'https://www.hrbox.io/blog/articles/hr_trends', lang:'RU', year:'2025'},
+  {id:19, topic:'Человекоцентричность', title:'Зачем человекоцентричный подход бизнесу', type:'Статья', summary:'Интервью с HR-директорами о практическом применении человекоцентричного подхода.', source:'Impact Mission', url:'https://impact-mission.org/ru/blog/zachem-chelovekotsentrichnyy-podkhod-biznesu-mnenie-hr-liderov/', lang:'RU', year:'2024'},
+  {id:20, topic:'Человекоцентричность', title:'Человекоцентричность: модное слово или тренд в HR?', type:'Статья', summary:'Дискуссия РБК+: реальный тренд или маркетинг? Примеры внедрения в российских компаниях.', source:'РБК+', url:'https://spb.plus.rbc.ru/news/6620cfc17a8aa92a9fe275f5', lang:'RU', year:'2024'},
+  {id:21, topic:'Человекоцентричность', title:'Человекоцентричность в бизнесе: принципы и методология', type:'Статья', summary:'Принципы человекоцентричного подхода: как внедрять, метрики, ROI.', source:'Potok.io', url:'https://potok.io/blog/hr-howto/chelovekocentrichnost-v-biznese/', lang:'RU', year:'2024'},
+  {id:22, topic:'Человекоцентричность', title:'Индекс возможностей — ЭКОПСИ', type:'Отчёт', summary:'Методология ЭКОПСИ для оценки организационной среды с точки зрения возможностей для развития.', source:'ЭКОПСИ', url:'https://research.ecopsy.ru/opportunity-index', lang:'RU', year:'2024'},
+  {id:23, topic:'Человекоцентричность', title:'Human-Centricity as Enabler of High Data Quality for AI', type:'Статья', summary:'Человекоцентричность как основа качества данных для ИИ — исследование California Management Review.', source:'California Management Review', url:'https://cmr.berkeley.edu/2025/06/human-centricity-as-an-enabler-of-high-data-quality-for-ai/', lang:'EN', year:'2025'},
+  {id:24, topic:'Человекоцентричность', title:'Industry 5.0: human-centric European industry', type:'Отчёт', summary:'Отчёт Еврокомиссии: человекоцентричность как один из трёх столпов Industry 5.0.', source:'European Commission', url:'https://research-and-innovation.ec.europa.eu/knowledge-publications-tools-and-data/publications/all-publications/industry-50-towards-sustainable-human-centric-and-resilient-european-industry_en', lang:'EN', year:'2021'},
+  {id:25, topic:'Человекоцентричность', title:'Human Centricity in Industry 4.0 to 5.0 Transition', type:'Статья', summary:'Интегративный обзор литературы: роль человекоцентричности в переходе от Индустрии 4.0 к 5.0.', source:'ResearchGate', url:'https://www.researchgate.net/publication/368240686', lang:'EN', year:'2023'},
+  {id:26, topic:'Человекоцентричность', title:'Defining human-centricity in Industry 5.0', type:'Статья', summary:'Академическое определение человекоцентричности в Industry 5.0, оценка готовности HR/HF-сообществ.', source:'Taylor & Francis', url:'https://www.tandfonline.com/doi/full/10.1080/00140139.2024.2343947', lang:'EN', year:'2024'},
+  {id:27, topic:'Человекоцентричность', title:'Индустрия 5.0 — поворот технологий к человеку', type:'Статья', summary:'Публикация ВШЭ: парадигма Industry 5.0, место человекоцентричности, перспективы для России.', source:'НИУ ВШЭ', url:'https://publications.hse.ru/articles/1119426868', lang:'RU', year:'2024'},
+  {id:28, topic:'Человекоцентричность', title:'Портал NeoHR по человекоцентричности', type:'Портал', summary:'Агрегированный портал: индекс, статьи, кейсы, интервью по человекоцентричности.', source:'NeoHR', url:'https://neohr.ru/chelovekocentrichnost', lang:'RU', year:'2024'},
+];
+
+let currentTopicFilter = 'all';
+let currentLangFilter = 'all';
+let currentSearch = '';
+let currentSort = {key: 'id', dir: 'asc'};
+
+function getFiltered() {
+  return DATA.filter(d => {
+    if (currentTopicFilter === 'tx' && d.topic !== 'Total Experience') return false;
+    if (currentTopicFilter === 'hc' && d.topic !== 'Человекоцентричность') return false;
+    if (currentLangFilter !== 'all' && d.lang !== currentLangFilter) return false;
+    if (currentSearch) {
+      const q = currentSearch.toLowerCase();
+      if (!(d.title.toLowerCase().includes(q) || d.summary.toLowerCase().includes(q) || d.source.toLowerCase().includes(q) || d.topic.toLowerCase().includes(q))) return false;
+    }
+    return true;
+  }).sort((a, b) => {
+    const k = currentSort.key;
+    const dir = currentSort.dir === 'asc' ? 1 : -1;
+    const va = (a[k] || '').toString();
+    const vb = (b[k] || '').toString();
+    return va.localeCompare(vb, 'ru') * dir;
+  });
+}
+
+function renderStats() {
+  const filtered = getFiltered();
+  const txCount = filtered.filter(d => d.topic === 'Total Experience').length;
+  const hcCount = filtered.filter(d => d.topic === 'Человекоцентричность').length;
+  const ruCount = filtered.filter(d => d.lang === 'RU').length;
+  const enCount = filtered.filter(d => d.lang === 'EN').length;
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-tile"><div class="label">Всего источников</div><div class="value">${filtered.length}</div><div class="detail">из ${DATA.length} в базе</div></div>
+    <div class="stat-tile"><div class="label">Total Experience</div><div class="value" style="color:var(--series-1)">${txCount}</div><div class="detail">${Math.round(txCount/Math.max(filtered.length,1)*100)}% от выборки</div></div>
+    <div class="stat-tile"><div class="label">Человекоцентричность</div><div class="value" style="color:var(--series-2)">${hcCount}</div><div class="detail">${Math.round(hcCount/Math.max(filtered.length,1)*100)}% от выборки</div></div>
+    <div class="stat-tile"><div class="label">Языки</div><div class="value">${ruCount}<span style="font-size:.9rem;color:var(--text-muted)"> RU</span> ${enCount}<span style="font-size:.9rem;color:var(--text-muted)"> EN</span></div></div>
+  `;
+}
+
+function renderCharts() {
+  const filtered = getFiltered();
+  const txCount = filtered.filter(d => d.topic === 'Total Experience').length;
+  const hcCount = filtered.filter(d => d.topic === 'Человекоцентричность').length;
+  const maxTopic = Math.max(txCount, hcCount, 1);
+
+  document.getElementById('topicChart').innerHTML = `
+    <div class="bar-row"><div class="bar-label">Total Experience</div><div class="bar-track"><div class="bar-fill bar-fill-tx" style="width:${txCount/maxTopic*100}%"></div></div><div class="bar-value">${txCount}</div></div>
+    <div class="bar-row"><div class="bar-label">Человекоцентричность</div><div class="bar-track"><div class="bar-fill bar-fill-hc" style="width:${hcCount/maxTopic*100}%"></div></div><div class="bar-value">${hcCount}</div></div>
+  `;
+
+  const types = {};
+  filtered.forEach(d => { types[d.type] = (types[d.type]||0) + 1; });
+  const sortedTypes = Object.entries(types).sort((a,b) => b[1]-a[1]);
+  const maxType = sortedTypes.length ? sortedTypes[0][1] : 1;
+  document.getElementById('typeChart').innerHTML = sortedTypes.map(([t, c]) =>
+    `<div class="bar-row"><div class="bar-label">${t}</div><div class="bar-track"><div class="bar-fill" style="width:${c/maxType*100}%; background:var(--series-1); opacity:${0.5 + 0.5*c/maxType}"></div></div><div class="bar-value">${c}</div></div>`
+  ).join('');
+}
+
+function getTypeClass(type) {
+  if (type === 'Статья') return 'type-article';
+  if (type === 'Отчёт') return 'type-report';
+  if (type === 'Портал') return 'type-portal';
+  if (type === 'Пресс-релиз') return 'type-press';
+  return '';
+}
+
+function renderTable() {
+  const filtered = getFiltered();
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+
+  document.getElementById('countBadge').textContent = `${filtered.length} ${filtered.length === 1 ? 'запись' : filtered.length < 5 ? 'записи' : 'записей'}`;
+
+  if (!filtered.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map(d => `
+    <tr>
+      <td><span class="topic-tag ${d.topic === 'Total Experience' ? 'topic-tx' : 'topic-hc'}">${d.topic === 'Total Experience' ? 'TX' : 'ЧЦ'}</span></td>
+      <td class="title-cell"><a href="${d.url}" target="_blank" rel="noopener">${d.title}</a></td>
+      <td><span class="type-tag ${getTypeClass(d.type)}">${d.type}</span></td>
+      <td class="summary-cell">${d.summary}</td>
+      <td class="source-cell">${d.source}</td>
+      <td><span class="lang-badge">${d.lang}</span></td>
+      <td style="white-space:nowrap">${d.year}</td>
+    </tr>
+  `).join('');
+}
+
+function setTopicFilter(f, btn) {
+  currentTopicFilter = f;
+  document.querySelectorAll('#topicFilters .filter-btn').forEach(b => {
+    b.className = 'filter-btn';
+  });
+  if (f === 'tx') btn.classList.add('active-tx');
+  else if (f === 'hc') btn.classList.add('active-hc');
+  else btn.classList.add('active');
+  render();
+}
+
+function setLangFilter(f, btn) {
+  currentLangFilter = f;
+  document.querySelectorAll('#langFilters .filter-btn').forEach(b => b.className = 'filter-btn');
+  btn.classList.add('active');
+  render();
+}
+
+function onSearch(q) { currentSearch = q; render(); }
+
+function sortBy(key) {
+  if (currentSort.key === key) {
+    currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+  } else {
+    currentSort = {key, dir: 'asc'};
+  }
+  render();
+}
+
+function render() {
+  renderStats();
+  renderCharts();
+  renderTable();
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+}
+
+document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('ru-RU');
+render();
+</script>
+</body>
+</html>

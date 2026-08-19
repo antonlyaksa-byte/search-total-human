@@ -1,0 +1,161 @@
+/**
+ * Search Total Human — генератор Google Таблицы из data/monitoring_data.json
+ *
+ * Установка:
+ * 1. Откройте (или создайте) Google Таблицу.
+ * 2. Расширения → Apps Script.
+ * 3. Удалите содержимое Code.gs, вставьте содержимое этого файла целиком.
+ * 4. Сохраните (Ctrl+S), выберите функцию buildSheet в выпадающем списке, нажмите "Выполнить".
+ * 5. При первом запуске Google запросит авторизацию — разрешите доступ к таблице.
+ *
+ * Обновление данных:
+ * Когда меняется data/monitoring_data.json, скопируйте новое содержимое массива
+ * в константу DATA ниже и снова запустите buildSheet.
+ */
+
+const DATA = [
+  {"id":1,"topic":"Total Experience","title":"Total Experience Research Report (KPMG)","type":"Отчёт","summary":"Исследование KPMG о стратегии Total Experience (TX) — объединение CX, EX, UX и MX для единого опыта взаимодействия.","source":"KPMG","url":"https://kpmg.com/us/en/articles/2026/total-experience-research-report.html","lang":"EN","year":"2026","added":"2026-08-19"},
+  {"id":2,"topic":"Total Experience","title":"Total Experience (TX): A Strategic Technology Trend","type":"Статья","summary":"Gartner определил TX как ключевой технологический тренд, объединяющий CX, EX, UX и multiexperience.","source":"Gartner / EvonTech","url":"https://evontech.com/component/easyblog/total-experience-tx-a-strategic-technology-trend.html","lang":"EN","year":"2022","added":"2026-08-19"},
+  {"id":3,"topic":"Total Experience","title":"Top Strategic Technology Trends for 2022: Total Experience","type":"Отчёт","summary":"Оригинальный отчёт Gartner, где TX впервые назван стратегическим технологическим трендом года.","source":"Gartner","url":"https://www.gartner.com/en/documents/4006928","lang":"EN","year":"2022","added":"2026-08-19"},
+  {"id":4,"topic":"Total Experience","title":"Why a Total Experience (TX) Strategy Matters","type":"Статья","summary":"Анализ: стратегия TX — рост удержания клиентов, вовлечённость сотрудников, снижение издержек.","source":"UNRVLD","url":"https://www.unrvld.com/trends-insights/why-adopting-a-total-experience-tx-strategy-matters","lang":"EN","year":"2023","added":"2026-08-19"},
+  {"id":5,"topic":"Total Experience","title":"What is Total Experience? Definition + strategies","type":"Статья","summary":"Комплексный гайд Zendesk: определение TX, составляющие, практические стратегии внедрения.","source":"Zendesk","url":"https://www.zendesk.com/blog/total-experience/","lang":"EN","year":"2024","added":"2026-08-19"},
+  {"id":6,"topic":"Total Experience","title":"Global Customer Experience Excellence 2025–2026","type":"Отчёт","summary":"Глобальный отчёт KPMG об эволюции клиентского опыта, включая элементы Total Experience.","source":"KPMG","url":"https://assets.kpmg.com/content/dam/kpmg/cn/pdf/en/2025/12/global-customer-experience-excellence-2025-2026.pdf","lang":"EN","year":"2025","added":"2026-08-19"},
+  {"id":7,"topic":"Total Experience","title":"Total Experience — Обобщённый опыт","type":"Статья","summary":"Обзор концепции Total Experience на российском рынке: определение, компоненты, примеры внедрения.","source":"CNews","url":"https://www.cnews.ru/book/Total_Experience","lang":"RU","year":"2023","added":"2026-08-19"},
+  {"id":8,"topic":"Total Experience","title":"Total Experience – инструмент для стратегии бизнеса","type":"Статья","summary":"Практическое руководство: как компании-лидеру использовать стратегию Total Experience.","source":"Workspace.ru","url":"https://workspace.ru/blog/kak-kompanii-lideru-otrasli-ispolzovat-strategiyu-obshchego-opyta-total-experience/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":9,"topic":"Total Experience","title":"20+ элементов Total Experience","type":"Статья","summary":"Детальный разбор всех компонентов TX: от customer journey до employee experience, с практическими примерами.","source":"inForce","url":"https://invisibleforce.ru/blog/20-elementov-total-experience-iz-chego-sostoit-vseobemlyushhij-opyt/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":10,"topic":"Total Experience","title":"Стратегия увеличения продаж Total Experience","type":"Статья","summary":"Как TX-подход влияет на продажи: интеграция клиентского и сотруднического опыта для роста конверсий.","source":"Mediaten","url":"https://mediaten.ru/ru/blog/total-experience","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":11,"topic":"Total Experience","title":"Total Experience: Interlinking UX, CX, MX, and EX","type":"Статья","summary":"Взаимосвязь четырёх дисциплин внутри Total Experience и синергия между ними.","source":"SaveDelete","url":"https://savedelete.com/news/technology/total-experience/425175/","lang":"EN","year":"2023","added":"2026-08-19"},
+  {"id":12,"topic":"Человекоцентричность","title":"Индекс человекоцентричности компаний 2023 (Росатом)","type":"Отчёт","summary":"Пилотное исследование: 120 компаний из России, СНГ и БРИКС. Средний индекс — 52 балла. Субиндексы: Сотрудники (57), Сообщество (46). С BCG и ВШЭ.","source":"Корпоративная Академия Росатома","url":"https://research.rosatomimpact.com/","lang":"RU","year":"2023","added":"2026-08-19"},
+  {"id":13,"topic":"Человекоцентричность","title":"Индекс человекоцентричности компаний 2024","type":"Отчёт","summary":"Второй ежегодный отчёт — расширенная выборка, обновлённая методология.","source":"Росатом / CFO-Russia","url":"https://www.cfo-russia.ru/issledovaniya/?article=86982","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":14,"topic":"Человекоцентричность","title":"Росатом: результаты индекса человекоцентричности","type":"Пресс-релиз","summary":"Официальная публикация результатов: методология, ключевые выводы, планы развития индекса.","source":"Росатом / Impact Mission","url":"https://impact-mission.org/ru/blog/rosatom-presents-results-of-companies-human-centricity-index/","lang":"RU","year":"2023","added":"2026-08-19"},
+  {"id":15,"topic":"Человекоцентричность","title":"Портал исследований по человекоцентричности (Росатом)","type":"Портал","summary":"Портал Корпоративной Академии Росатома: методологии, данные, публикации по человекоцентричности.","source":"Корпоративная Академия Росатома","url":"https://rosatom-academy.ru/media/research/chelovekocentrichnost/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":16,"topic":"Человекоцентричность","title":"Человекоцентричность – стратегия нового времени","type":"Статья","summary":"Обзор: человекоцентричность как новая парадигма управления, примеры из российского бизнеса.","source":"Комсомольская правда","url":"https://www.kp.ru/daily/27479/4736146/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":17,"topic":"Человекоцентричность","title":"Тренд на человекоцентричность в HRTech","type":"Статья","summary":"Технологические решения для человекоцентричного HR: платформы, инструменты, кейсы.","source":"TAdviser","url":"https://www.tadviser.ru/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":18,"topic":"Человекоцентричность","title":"HR-тренды 2025: автоматизация и человекоцентричность","type":"Статья","summary":"Прогноз: человекоцентричность как ключевой HR-тренд наряду с автоматизацией.","source":"HRBox","url":"https://www.hrbox.io/blog/articles/hr_trends","lang":"RU","year":"2025","added":"2026-08-19"},
+  {"id":19,"topic":"Человекоцентричность","title":"Зачем человекоцентричный подход бизнесу","type":"Статья","summary":"Интервью с HR-директорами о практическом применении человекоцентричного подхода.","source":"Impact Mission","url":"https://impact-mission.org/ru/blog/zachem-chelovekotsentrichnyy-podkhod-biznesu-mnenie-hr-liderov/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":20,"topic":"Человекоцентричность","title":"Человекоцентричность: модное слово или тренд в HR?","type":"Статья","summary":"Дискуссия РБК+: реальный тренд или маркетинг? Примеры внедрения в российских компаниях.","source":"РБК+","url":"https://spb.plus.rbc.ru/news/6620cfc17a8aa92a9fe275f5","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":21,"topic":"Человекоцентричность","title":"Человекоцентричность в бизнесе: принципы и методология","type":"Статья","summary":"Принципы человекоцентричного подхода: как внедрять, метрики, ROI.","source":"Potok.io","url":"https://potok.io/blog/hr-howto/chelovekocentrichnost-v-biznese/","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":22,"topic":"Человекоцентричность","title":"Индекс возможностей — ЭКОПСИ","type":"Отчёт","summary":"Методология ЭКОПСИ для оценки организационной среды с точки зрения возможностей для развития.","source":"ЭКОПСИ","url":"https://research.ecopsy.ru/opportunity-index","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":23,"topic":"Человекоцентричность","title":"Human-Centricity as Enabler of High Data Quality for AI","type":"Статья","summary":"Человекоцентричность как основа качества данных для ИИ — California Management Review.","source":"California Management Review","url":"https://cmr.berkeley.edu/2025/06/human-centricity-as-an-enabler-of-high-data-quality-for-ai/","lang":"EN","year":"2025","added":"2026-08-19"},
+  {"id":24,"topic":"Человекоцентричность","title":"Industry 5.0: human-centric European industry","type":"Отчёт","summary":"Отчёт Еврокомиссии: человекоцентричность как один из трёх столпов Industry 5.0.","source":"European Commission","url":"https://research-and-innovation.ec.europa.eu/knowledge-publications-tools-and-data/publications/all-publications/industry-50-towards-sustainable-human-centric-and-resilient-european-industry_en","lang":"EN","year":"2021","added":"2026-08-19"},
+  {"id":25,"topic":"Человекоцентричность","title":"Human Centricity in Industry 4.0 to 5.0 Transition","type":"Статья","summary":"Обзор литературы: роль человекоцентричности в переходе от Индустрии 4.0 к 5.0.","source":"ResearchGate","url":"https://www.researchgate.net/publication/368240686","lang":"EN","year":"2023","added":"2026-08-19"},
+  {"id":26,"topic":"Человекоцентричность","title":"Defining human-centricity in Industry 5.0","type":"Статья","summary":"Академическое определение человекоцентричности в Industry 5.0, оценка готовности HR/HF-сообществ.","source":"Taylor & Francis","url":"https://www.tandfonline.com/doi/full/10.1080/00140139.2024.2343947","lang":"EN","year":"2024","added":"2026-08-19"},
+  {"id":27,"topic":"Человекоцентричность","title":"Индустрия 5.0 — поворот технологий к человеку","type":"Статья","summary":"Публикация ВШЭ: парадигма Industry 5.0, место человекоцентричности, перспективы для России.","source":"НИУ ВШЭ","url":"https://publications.hse.ru/articles/1119426868","lang":"RU","year":"2024","added":"2026-08-19"},
+  {"id":28,"topic":"Человекоцентричность","title":"Портал NeoHR по человекоцентричности","type":"Портал","summary":"Агрегированный портал: индекс, статьи, кейсы, интервью по человекоцентричности.","source":"NeoHR","url":"https://neohr.ru/chelovekocentrichnost","lang":"RU","year":"2024","added":"2026-08-19"}
+];
+
+const SHEET_DATA_NAME = "База знаний";
+const SHEET_STATS_NAME = "Статистика";
+
+const HEADERS = [
+  ["№", 40],
+  ["Тема", 130],
+  ["Название материала", 260],
+  ["Тип", 90],
+  ["Краткое содержание", 380],
+  ["Источник / Автор", 150],
+  ["Ссылка", 220],
+  ["Язык", 50],
+  ["Год", 60],
+  ["Дата добавления", 100],
+];
+
+const COLOR_HEADER_BG = "#2B579A";
+const COLOR_HEADER_FONT = "#FFFFFF";
+const COLOR_TX_BG = "#E8F0FE";
+const COLOR_HC_BG = "#FCE8E6";
+const COLOR_BORDER = "#D9D9D9";
+const COLOR_LINK = "#0563C1";
+
+function buildSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  buildDataSheet_(ss);
+  buildStatsSheet_(ss);
+  SpreadsheetApp.getUi().alert(`Готово: ${DATA.length} записей загружено в "${SHEET_DATA_NAME}".`);
+}
+
+function buildDataSheet_(ss) {
+  let sheet = ss.getSheetByName(SHEET_DATA_NAME);
+  if (sheet) {
+    sheet.clear();
+  } else {
+    sheet = ss.insertSheet(SHEET_DATA_NAME);
+  }
+
+  const numCols = HEADERS.length;
+  const numRows = DATA.length + 1;
+
+  // Заголовки
+  const headerRange = sheet.getRange(1, 1, 1, numCols);
+  headerRange.setValues([HEADERS.map(h => h[0])]);
+  headerRange.setFontWeight("bold").setFontColor(COLOR_HEADER_FONT)
+    .setBackground(COLOR_HEADER_BG).setHorizontalAlignment("center")
+    .setVerticalAlignment("middle").setWrap(true);
+  sheet.setRowHeight(1, 34);
+
+  HEADERS.forEach((h, i) => sheet.setColumnWidth(i + 1, h[1]));
+
+  // Данные
+  const rows = DATA.map(item => [
+    item.id, item.topic, item.title, item.type, item.summary,
+    item.source, item.url, item.lang, item.year, item.added,
+  ]);
+  if (rows.length) {
+    const dataRange = sheet.getRange(2, 1, rows.length, numCols);
+    dataRange.setValues(rows);
+    dataRange.setVerticalAlignment("top").setWrap(true).setFontFamily("Arial").setFontSize(10);
+    sheet.getRangeList(["A2:A" + numRows, "D2:D" + numRows, "H2:H" + numRows, "I2:I" + numRows, "J2:J" + numRows])
+      .setHorizontalAlignment("center");
+
+    // Ссылки — кликабельные, синие, подчёркнутые
+    const linkCol = 7;
+    const richValues = DATA.map(item => [
+      SpreadsheetApp.newRichTextValue().setText(item.url).setLinkUrl(item.url).build(),
+    ]);
+    sheet.getRange(2, linkCol, rows.length, 1).setRichTextValues(richValues);
+    sheet.getRange(2, linkCol, rows.length, 1).setFontColor(COLOR_LINK).setFontLine("underline");
+
+    // Заливка по теме
+    for (let r = 0; r < DATA.length; r++) {
+      const bg = DATA[r].topic === "Total Experience" ? COLOR_TX_BG
+        : DATA[r].topic === "Человекоцентричность" ? COLOR_HC_BG
+        : null;
+      if (bg) sheet.getRange(r + 2, 2).setBackground(bg);
+    }
+  }
+
+  sheet.getRange(1, 1, numRows, numCols).setBorder(true, true, true, true, true, true, COLOR_BORDER, SpreadsheetApp.BorderStyle.SOLID);
+  sheet.setFrozenRows(1);
+  const existingFilter = sheet.getFilter();
+  if (existingFilter) existingFilter.remove();
+  sheet.getRange(1, 1, numRows, numCols).createFilter();
+}
+
+function buildStatsSheet_(ss) {
+  let sheet = ss.getSheetByName(SHEET_STATS_NAME);
+  if (sheet) {
+    sheet.clear();
+  } else {
+    sheet = ss.insertSheet(SHEET_STATS_NAME);
+  }
+
+  const d = `'${SHEET_DATA_NAME}'`;
+  const rows = [
+    ["Метрика", "Значение"],
+    ["Всего записей", `=COUNTA(${d}!A2:A10000)`],
+    ["Total Experience", `=COUNTIF(${d}!B2:B10000,"Total Experience")`],
+    ["Человекоцентричность", `=COUNTIF(${d}!B2:B10000,"Человекоцентричность")`],
+    ["Статей", `=COUNTIF(${d}!D2:D10000,"Статья")`],
+    ["Отчётов", `=COUNTIF(${d}!D2:D10000,"Отчёт")`],
+    ["На русском", `=COUNTIF(${d}!H2:H10000,"RU")`],
+    ["На английском", `=COUNTIF(${d}!H2:H10000,"EN")`],
+    ["Последнее обновление", Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd")],
+  ];
+
+  sheet.getRange(1, 1, rows.length, 2).setValues(rows);
+  sheet.getRange(1, 1, 1, 2).setFontWeight("bold").setFontColor(COLOR_HEADER_FONT).setBackground(COLOR_HEADER_BG);
+  sheet.getRange(2, 1, rows.length - 1, 1).setFontWeight("normal");
+  sheet.getRange(2, 2, rows.length - 1, 1).setFontWeight("bold");
+  sheet.setColumnWidth(1, 220);
+  sheet.setColumnWidth(2, 140);
+}
