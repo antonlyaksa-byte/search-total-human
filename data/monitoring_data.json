@@ -334,5 +334,77 @@
     "lang": "RU",
     "year": "2024",
     "added": "2026-08-19"
+  },
+  {
+    "id": 29,
+    "topic": "Total Experience",
+    "title": "Total Experience Score, 2026: Growth Breaks When Experiences Fragment",
+    "type": "Статья",
+    "summary": "Forrester: анализ 406 брендов в 13 странах показывает, что рост ускоряется, когда бренд, клиентский и сотруднический опыт объединены в единую систему.",
+    "source": "Forrester",
+    "url": "https://www.forrester.com/blogs/total-experience-score-2026-growth-breaks-when-experiences-fragment/",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 30,
+    "topic": "Человекоцентричность",
+    "title": "The State of Organizations 2026: Three tectonic forces that are reshaping organizations",
+    "type": "Отчёт",
+    "summary": "McKinsey: исследование более 10 000 руководителей в 15 странах о трёх силах, переосмысливающих организации, и роли человекоцентричного лидерства.",
+    "source": "McKinsey",
+    "url": "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/webinars-and-podcasts/leadership-reinvented",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 31,
+    "topic": "Человекоцентричность",
+    "title": "2026 Global Human Capital Trends",
+    "type": "Отчёт",
+    "summary": "Deloitte: успех организаций всё больше зависит не от технологий самих по себе, а от развития «человеческого преимущества» — сотрудничества людей и ИИ.",
+    "source": "Deloitte",
+    "url": "https://www.deloitte.com/us/en/insights/topics/talent/human-capital-trends.html",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 32,
+    "topic": "Человекоцентричность",
+    "title": "Leading the Human-AI Organization",
+    "type": "Статья",
+    "summary": "HBR: дискуссия CHRO с Leadership Summit 2026 о балансе технологической трансформации с доверием и эмпатией в человекоцентричном управлении.",
+    "source": "Harvard Business Review",
+    "url": "https://hbr.org/2026/05/leading-the-human-ai-organization",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 33,
+    "topic": "Человекоцентричность",
+    "title": "Человекоцентричность, лидерство и ИИ: баланс технологий и заботы",
+    "type": "Статья",
+    "summary": "НИУ ВШЭ: заведующий Лабораторией ЧИЛ Владимир Соловьев представил модель человекоцентричной организации, где технологии раскрывают человеческий потенциал.",
+    "source": "НИУ ВШЭ / Лаборатория ЧИЛ",
+    "url": "https://leaderlab.hse.ru/news/1085232361.html",
+    "lang": "RU",
+    "year": "2025",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 34,
+    "topic": "Человекоцентричность",
+    "title": "Человекоцентричность в банковской сфере: исследование Лаборатории ЧИЛ НИУ ВШЭ и Банка России",
+    "type": "Исследование",
+    "summary": "Совместное исследование НИУ ВШЭ и Банка России о человекоцентричном подходе и ИИ в банковском секторе — компоненты модели человекоцентричного банка будущего.",
+    "source": "НИУ ВШЭ / Банк России",
+    "url": "https://leaderlab.hse.ru/news/994136306.html",
+    "lang": "RU",
+    "year": "2024",
+    "added": "2026-08-19"
   }
 ]
