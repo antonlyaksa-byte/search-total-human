@@ -406,5 +406,65 @@
     "lang": "RU",
     "year": "2024",
     "added": "2026-08-19"
+  },
+  {
+    "id": 35,
+    "topic": "Total Experience",
+    "title": "Step Up To Deliver The Total Experience",
+    "type": "Статья",
+    "summary": "Forrester вводит понятие «тотального опыта», объединяющего бренд-опыт и клиентский опыт; для успешной трансформации необходима кросс-функциональная синергия CX, маркетинга и цифровых команд.",
+    "source": "Forrester",
+    "url": "https://www.forrester.com/blogs/step-up-to-deliver-the-total-experience/",
+    "lang": "EN",
+    "year": "2025",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 36,
+    "topic": "Total Experience",
+    "title": "Human-Centered Design: Your First Step Toward Total Experience",
+    "type": "Статья",
+    "summary": "IBM объясняет, как человеко-ориентированный дизайн-мышление (enterprise design thinking) становится основой для построения Total Experience — объединения CX, EX, UX и MX.",
+    "source": "IBM",
+    "url": "https://www.ibm.com/think/insights/human-centered-design-your-first-step-toward-total-experience",
+    "lang": "EN",
+    "year": "2024",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 37,
+    "topic": "Человекоцентричность",
+    "title": "Человек в центре: от Москвы до Дальнего Востока",
+    "type": "Статья",
+    "summary": "Лаборатория человекоцентричности и лидерских практик НИУ ВШЭ представила на марафоне знаний в Хабаровске модель управления, основанную на данных 16 000 респондентов: стратегия, культура, процессы и лидерство.",
+    "source": "НИУ ВШЭ / Лаборатория ЧИЛ",
+    "url": "https://www.hse.ru/news/development/1092664220.html",
+    "lang": "RU",
+    "year": "2025",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 38,
+    "topic": "Человекоцентричность",
+    "title": "Five Priorities in 2026 for Human-Centric Leaders",
+    "type": "Отчёт",
+    "summary": "White paper Gagen MacDonald: пять приоритетов человекоцентричного лидерства в 2026 году — доверие при реструктуризации, разрыв между сотрудниками и руководством в отношении ИИ, вовлечённость менеджеров среднего звена и культура обучения.",
+    "source": "Gagen MacDonald",
+    "url": "https://www.gagenmacdonald.com/blog/white-paper-five-priorities-in-2026-for-human-centric-leaders",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-19"
+  },
+  {
+    "id": 39,
+    "topic": "Человекоцентричность",
+    "title": "HR's 2026 Playbook Signals a Human-Centric Tech Reset",
+    "type": "Статья",
+    "summary": "TechNewsWorld: HR-лидеры пересматривают подход к опыту сотрудников — используют ИИ и автоматизацию для снижения административной нагрузки, сохраняя человекоцентричность и прозрачность в вопросах карьерного роста.",
+    "source": "TechNewsWorld",
+    "url": "https://www.technewsworld.com/story/hrs-2026-playbook-signals-a-human-centric-tech-reset-180063.html",
+    "lang": "EN",
+    "year": "2025",
+    "added": "2026-08-19"
   }
 ]
