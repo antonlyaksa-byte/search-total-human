@@ -57,7 +57,9 @@ const HEADERS = [
   ["Язык", 50],
   ["Год", 60],
   ["Дата добавления", 100],
+  ["Прочитано", 90],
 ];
+const READ_COL = HEADERS.length; // last column
 
 const COLOR_HEADER_BG = "#2B579A";
 const COLOR_HEADER_FONT = "#FFFFFF";
@@ -74,8 +76,29 @@ function buildSheet() {
   SpreadsheetApp.getUi().alert(`Готово: ${data.length} записей загружено в "${SHEET_DATA_NAME}".`);
 }
 
+function readPreviousReadState_(sheet) {
+  const state = {};
+  if (!sheet) return state;
+  const lastRow = sheet.getLastRow();
+  const lastCol = sheet.getLastColumn();
+  if (lastRow < 2 || lastCol < 1) return state;
+
+  const header = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  const readColIdx = header.indexOf("Прочитано");
+  const idColIdx = header.indexOf("№");
+  if (readColIdx === -1 || idColIdx === -1) return state;
+
+  const values = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  values.forEach(row => {
+    const id = row[idColIdx];
+    if (id !== "" && id !== null) state[id] = row[readColIdx] === true;
+  });
+  return state;
+}
+
 function buildDataSheet_(ss, data) {
   let sheet = ss.getSheetByName(SHEET_DATA_NAME);
+  const previousReadState = readPreviousReadState_(sheet);
   if (sheet) {
     sheet.clear();
   } else {
@@ -101,11 +124,18 @@ function buildDataSheet_(ss, data) {
     item.source, item.url, item.lang, item.year, item.added,
   ]);
   if (rows.length) {
-    const dataRange = sheet.getRange(2, 1, rows.length, numCols);
+    const dataRange = sheet.getRange(2, 1, rows.length, rows[0].length);
     dataRange.setValues(rows);
     dataRange.setVerticalAlignment("top").setWrap(true).setFontFamily("Arial").setFontSize(10);
     sheet.getRangeList(["A2:A" + numRows, "D2:D" + numRows, "H2:H" + numRows, "I2:I" + numRows, "J2:J" + numRows])
       .setHorizontalAlignment("center");
+
+    // Чекбокс "Прочитано" — сохраняем отметки с прошлой пересборки по id
+    const readRange = sheet.getRange(2, READ_COL, rows.length, 1);
+    readRange.insertCheckboxes();
+    const readValues = data.map(item => [previousReadState[item.id] === true]);
+    readRange.setValues(readValues);
+    readRange.setHorizontalAlignment("center").setVerticalAlignment("middle");
 
     // Ссылки — кликабельные, синие, подчёркнутые
     const linkCol = 7;
