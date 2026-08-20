@@ -74,7 +74,7 @@ function buildSheet() {
   const data = fetchData_();
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   buildDataSheet_(ss, data);
-  buildStatsSheet_(ss);
+  buildStatsSheet_(ss, data);
   SpreadsheetApp.getUi().alert(`Готово: ${data.length} записей загружено в "${SHEET_DATA_NAME}".`);
 }
 
@@ -208,7 +208,7 @@ function buildDataSheet_(ss, data) {
   sheet.getRange(1, 1, numRows, numCols).createFilter();
 }
 
-function buildStatsSheet_(ss) {
+function buildStatsSheet_(ss, data) {
   let sheet = ss.getSheetByName(SHEET_STATS_NAME);
   if (sheet) {
     sheet.clear();
@@ -216,16 +216,19 @@ function buildStatsSheet_(ss) {
     sheet = ss.insertSheet(SHEET_STATS_NAME);
   }
 
-  const d = `'${SHEET_DATA_NAME}'`;
+  // Числа считаются прямо в скрипте (а не формулами COUNTIF), чтобы не зависеть
+  // от локали таблицы — при русской локали Sheets ждёт ";" вместо "," в формулах,
+  // из-за чего COUNTIF выдавал #ERROR!.
+  const count_ = (pred) => data.filter(pred).length;
   const rows = [
     ["Метрика", "Значение"],
-    ["Всего записей", `=COUNTA(${d}!A2:A10000)`],
-    ["Total Experience", `=COUNTIF(${d}!B2:B10000,"Total Experience")`],
-    ["Человекоцентричность", `=COUNTIF(${d}!B2:B10000,"Человекоцентричность")`],
-    ["Статей", `=COUNTIF(${d}!D2:D10000,"Статья")`],
-    ["Отчётов", `=COUNTIF(${d}!D2:D10000,"Отчёт")`],
-    ["На русском", `=COUNTIF(${d}!H2:H10000,"RU")`],
-    ["На английском", `=COUNTIF(${d}!H2:H10000,"EN")`],
+    ["Всего записей", data.length],
+    ["Total Experience", count_(item => item.topic === "Total Experience")],
+    ["Человекоцентричность", count_(item => item.topic === "Человекоцентричность")],
+    ["Статей", count_(item => item.type === "Статья")],
+    ["Отчётов", count_(item => item.type === "Отчёт")],
+    ["На русском", count_(item => item.lang === "RU")],
+    ["На английском", count_(item => item.lang === "EN")],
     ["Последнее обновление", Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd")],
   ];
 
