@@ -58,8 +58,10 @@ const HEADERS = [
   ["Год", 60],
   ["Дата добавления", 100],
   ["Прочитано", 90],
+  ["Полезность информации", 110],
 ];
-const READ_COL = HEADERS.length; // last column
+const READ_COL = HEADERS.length - 1;
+const USEFUL_COL = HEADERS.length; // last column
 
 const COLOR_HEADER_BG = "#2B579A";
 const COLOR_HEADER_FONT = "#FFFFFF";
@@ -96,9 +98,30 @@ function readPreviousReadState_(sheet) {
   return state;
 }
 
+function readPreviousUsefulState_(sheet) {
+  const state = {};
+  if (!sheet) return state;
+  const lastRow = sheet.getLastRow();
+  const lastCol = sheet.getLastColumn();
+  if (lastRow < 2 || lastCol < 1) return state;
+
+  const header = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  const usefulColIdx = header.indexOf("Полезность информации");
+  const idColIdx = header.indexOf("№");
+  if (usefulColIdx === -1 || idColIdx === -1) return state;
+
+  const values = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  values.forEach(row => {
+    const id = row[idColIdx];
+    if (id !== "" && id !== null) state[id] = row[usefulColIdx];
+  });
+  return state;
+}
+
 function buildDataSheet_(ss, data) {
   let sheet = ss.getSheetByName(SHEET_DATA_NAME);
   const previousReadState = readPreviousReadState_(sheet);
+  const previousUsefulState = readPreviousUsefulState_(sheet);
   if (sheet) {
     sheet.clear();
   } else {
@@ -136,6 +159,17 @@ function buildDataSheet_(ss, data) {
     const readValues = data.map(item => [previousReadState[item.id] === true]);
     readRange.setValues(readValues);
     readRange.setHorizontalAlignment("center").setVerticalAlignment("middle");
+
+    // Выпадающий список "Полезность информации" (1-5) — сохраняем оценки с прошлой пересборки по id
+    const usefulRange = sheet.getRange(2, USEFUL_COL, rows.length, 1);
+    const usefulRule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(["1", "2", "3", "4", "5"], true)
+      .setAllowInvalid(false)
+      .build();
+    usefulRange.setDataValidation(usefulRule);
+    const usefulValues = data.map(item => [previousUsefulState[item.id] || ""]);
+    usefulRange.setValues(usefulValues);
+    usefulRange.setHorizontalAlignment("center").setVerticalAlignment("middle");
 
     // Ссылки — кликабельные, синие, подчёркнутые
     const linkCol = 7;

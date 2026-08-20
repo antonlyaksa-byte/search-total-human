@@ -14,6 +14,7 @@ import sys
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.datavalidation import DataValidation
 from datetime import datetime
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,6 +61,7 @@ def build_xlsx(data):
         ("Язык", 8),
         ("Год", 15),
         ("Дата добавления", 15),
+        ("Полезность информации", 20),
     ]
 
     for col_idx, (header, width) in enumerate(headers, 1):
@@ -71,8 +73,17 @@ def build_xlsx(data):
         ws.column_dimensions[get_column_letter(col_idx)].width = width
 
     ws.row_dimensions[1].height = 30
-    ws.auto_filter.ref = f"A1:J1"
+    last_col_letter = get_column_letter(len(headers))
+    ws.auto_filter.ref = f"A1:{last_col_letter}1"
     ws.freeze_panes = "A2"
+
+    # Выпадающий список "Полезность информации" (1-5)
+    useful_col_idx = len(headers)
+    useful_col_letter = get_column_letter(useful_col_idx)
+    useful_validation = DataValidation(
+        type="list", formula1='"1,2,3,4,5"', allow_blank=True
+    )
+    ws.add_data_validation(useful_validation)
 
     # Данные
     for row_idx, item in enumerate(data, 2):
@@ -87,13 +98,14 @@ def build_xlsx(data):
             item.get("lang", ""),
             item.get("year", ""),
             item.get("added", ""),
+            "",
         ]
 
         for col_idx, value in enumerate(row_values, 1):
             cell = ws.cell(row=row_idx, column=col_idx, value=value)
             cell.font = link_font if col_idx == 7 else data_font
             cell.alignment = (
-                center_align if col_idx in (1, 4, 8, 9, 10) else wrap_align
+                center_align if col_idx in (1, 4, 8, 9, 10, useful_col_idx) else wrap_align
             )
             cell.border = thin_border
 
@@ -103,6 +115,7 @@ def build_xlsx(data):
                 elif value == "Человекоцентричность":
                     cell.fill = hc_fill
 
+        useful_validation.add(f"{useful_col_letter}{row_idx}")
         ws.row_dimensions[row_idx].height = 45
 
     # Лист статистики
