@@ -171,6 +171,19 @@ function buildDataSheet_(ss, data) {
     usefulRange.setValues(usefulValues);
     usefulRange.setHorizontalAlignment("center").setVerticalAlignment("middle");
 
+    // Цветовая индикация "Полезность информации": 1 - красный ... 5 - зелёный
+    const usefulColors = { "1": "#E06666", "2": "#F6B26B", "3": "#FFD966", "4": "#B6D7A8", "5": "#6AA84F" };
+    const otherRules = sheet.getConditionalFormatRules()
+      .filter(rule => !rule.getRanges().some(r => r.getColumn() === USEFUL_COL));
+    const usefulRules = Object.keys(usefulColors).map(val =>
+      SpreadsheetApp.newConditionalFormatRule()
+        .whenTextEqualTo(val)
+        .setBackground(usefulColors[val])
+        .setRanges([usefulRange])
+        .build()
+    );
+    sheet.setConditionalFormatRules(otherRules.concat(usefulRules));
+
     // Ссылки — кликабельные, синие, подчёркнутые
     const linkCol = 7;
     const richValues = data.map(item => [

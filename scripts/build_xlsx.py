@@ -15,6 +15,7 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.formatting.rule import CellIsRule
 from datetime import datetime
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -117,6 +118,23 @@ def build_xlsx(data):
 
         useful_validation.add(f"{useful_col_letter}{row_idx}")
         ws.row_dimensions[row_idx].height = 45
+
+    # Цветовая индикация "Полезность информации": 1 - красный ... 5 - зелёный
+    if data:
+        useful_range = f"{useful_col_letter}2:{useful_col_letter}{len(data) + 1}"
+        useful_colors = {
+            "1": "E06666",
+            "2": "F6B26B",
+            "3": "FFD966",
+            "4": "B6D7A8",
+            "5": "6AA84F",
+        }
+        for val, color in useful_colors.items():
+            fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+            ws.conditional_formatting.add(
+                useful_range,
+                CellIsRule(operator="equal", formula=[f'"{val}"'], fill=fill),
+            )
 
     # Лист статистики
     ws2 = wb.create_sheet("Статистика")
