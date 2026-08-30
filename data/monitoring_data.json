@@ -550,5 +550,89 @@
     "lang": "EN",
     "year": "2023",
     "added": "2026-08-23"
+  },
+  {
+    "id": 47,
+    "topic": "Человекоцентричность",
+    "title": "Вовлеченность в 2026: что происходит с людьми — и где бизнес уже теряет эффективность",
+    "type": "Статья",
+    "summary": "ЭКОПСИ разбирает кризис вовлечённости сотрудников в 2026 году на фоне экономической неопределённости и предлагает использовать данные об вовлечённости как инструмент управленческих решений, а не просто индекс.",
+    "source": "ЭКОПСИ Консалтинг",
+    "url": "https://www.ecopsy.ru/insights/vovlechennost-v-2026-chto-proiskhodit-s-lyudmi-i-gde-biznes-uzhe-teryaet-effektivnost/",
+    "lang": "RU",
+    "year": "2026",
+    "added": "2026-08-30"
+  },
+  {
+    "id": 48,
+    "topic": "Человекоцентричность",
+    "title": "HR-тренды 2026: от дефицитного рынка к оптимизации затрат",
+    "type": "Статья",
+    "summary": "ЭКОПСИ описывает переход от дефицитного рынка труда к парадигме оптимизации затрат и представляет 9 HR-трендов 2026 года, включая человекоцентричные ролевые структуры и измерение эффективности удержания персонала.",
+    "source": "ЭКОПСИ Консалтинг",
+    "url": "https://www.ecopsy.ru/insights/9-trendov-2026-ot-gonki-za-lyudmi-k-gonke-za-effektivnostyu/",
+    "lang": "RU",
+    "year": "2026",
+    "added": "2026-08-30"
+  },
+  {
+    "id": 49,
+    "topic": "Человекоцентричность",
+    "title": "Deloitte: In a New Era of Work, Winning Organizations Will Build the Human Advantage",
+    "type": "Пресс-релиз",
+    "summary": "Пресс-релиз к отчёту Deloitte «2026 Global Human Capital Trends»: организации, выбирающие человекоцентричный подход к внедрению ИИ, получают заметно больше отдачи от инвестиций, чем те, кто делает ставку только на технологии.",
+    "source": "Deloitte",
+    "url": "https://www.deloitte.com/us/en/about/press-room/deloitte-report-winning-organizations-will-build-the-human-advantage.html",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-30"
+  },
+  {
+    "id": 50,
+    "topic": "Человекоцентричность",
+    "title": "Take a human-centric approach to avoid AI's leadership traps",
+    "type": "Статья",
+    "summary": "Партнёры McKinsey объясняют, почему лидерам не стоит перекладывать сложные решения на генеративный ИИ, и предлагают человекоцентричные практики лидерства, сохраняющие нюансы и разнообразие мнений в условиях неопределённости.",
+    "source": "McKinsey & Company",
+    "url": "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-organization-blog/take-a-human-centric-approach-to-avoid-ais-leadership-traps",
+    "lang": "EN",
+    "year": "2025",
+    "added": "2026-08-30"
+  },
+  {
+    "id": 51,
+    "topic": "Total Experience",
+    "title": "How Do I Get Started With Total Experience?",
+    "type": "Отчёт",
+    "summary": "Материал Gartner с практическими рекомендациями для лидеров корпоративных приложений о том, как начать внедрение стратегии Total Experience с одного клиентского пути.",
+    "source": "Gartner",
+    "url": "https://www.gartner.com/en/documents/7912709",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-30"
+  },
+  {
+    "id": 52,
+    "topic": "Total Experience",
+    "title": "Total Experience (TX): A Holistic Approach to Business Success",
+    "type": "Статья",
+    "summary": "LinkedIn-статья Мэри Поппен о Total Experience как интегрированной бизнес-модели, объединяющей клиентский, сотруднический, пользовательский и партнёрский опыт для роста выручки за счёт кросс-функционального сотрудничества.",
+    "source": "LinkedIn / Mary Poppen",
+    "url": "https://www.linkedin.com/pulse/total-experience-tx-holistic-approach-business-success-mary-poppen-o2frc",
+    "lang": "EN",
+    "year": "2024",
+    "added": "2026-08-30"
+  },
+  {
+    "id": 53,
+    "topic": "Total Experience",
+    "title": "Why Forrester Believes Employee Experience Drives Better Customer Outcomes",
+    "type": "Статья",
+    "summary": "CX Today о расширении Forrester Total Experience Score: в оценку теперь включён опыт сотрудников наряду с клиентским и брендовым опытом, а анализ 375 брендов показал рост показателей у 41% компаний.",
+    "source": "CX Today",
+    "url": "https://www.cxtoday.com/workforce-engagement-management/forrester-total-experience-score-employee-experience-wem/",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-08-30"
   }
 ]
