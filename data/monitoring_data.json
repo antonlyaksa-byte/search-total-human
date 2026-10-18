@@ -970,5 +970,77 @@
     "lang": "EN",
     "year": "2026",
     "added": "2026-10-11"
+  },
+  {
+    "id": 82,
+    "topic": "Total Experience",
+    "title": "Retail's Incremental Total Experience Shift: Select Brands See Significant Improvement",
+    "type": "Статья",
+    "summary": "Forrester проанализировал Total Experience Score 41 крупного американского ритейлера: средний балл вырос незначительно (до 59,1 из 100), лидируют Tractor Supply, Kroger, Costco, Walmart и Chewy; в оценку 2026 года впервые включён опыт сотрудников (EX).",
+    "source": "Forrester",
+    "url": "https://www.forrester.com/blogs/retails-incremental-total-experience-shift-select-brands-see-significant-improvement/",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-10-18"
+  },
+  {
+    "id": 83,
+    "topic": "Человекоцентричность",
+    "title": "Human-Centricity in Industry 5.0: A Survey of Worker Sensing, Adaptive Operations, and Human-in-the-Loop Systems",
+    "type": "Исследование",
+    "summary": "Научный обзор выявляет разрыв между технологиями мониторинга состояния работников (датчики, системы компьютерного зрения) и их реальным использованием в адаптивном управлении производством в рамках человекоцентричной концепции Industry 5.0.",
+    "source": "arXiv",
+    "url": "https://arxiv.org/abs/2609.26245",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-10-18"
+  },
+  {
+    "id": 84,
+    "topic": "Человекоцентричность",
+    "title": "«Цифра не заменит эмпатию»",
+    "type": "Статья",
+    "summary": "Интервью с первым вице-президентом Совкомбанка Игорем Волковым: банк развивает человекоцентричный подход в корпоративном кредитовании через программу персонального кураторства «Свой человек», сочетая цифровые алгоритмы с личным доверием.",
+    "source": "Коммерсантъ",
+    "url": "https://www.kommersant.ru/doc/8587863",
+    "lang": "RU",
+    "year": "2026",
+    "added": "2026-10-18"
+  },
+  {
+    "id": 85,
+    "topic": "Человекоцентричность",
+    "title": "Эпоха эмпатии, или Как человекоцентричность становится новым фундаментом российской экономики",
+    "type": "Статья",
+    "summary": "По материалам Финансового университета: российский бизнес и госсектор переходят от клиентоориентированности к человекоцентричности — выделены четыре мегатренда: проактивность госуслуг, кокреация, бесшовная интеграция процессов и инклюзивность.",
+    "source": "Ведомости / Финансовый университет при Правительстве РФ",
+    "url": "https://www.vedomosti.ru/press_releases/2026/10/15/epoha-empatii-ili-kak-chelovekotsentrichnost-stanovitsya-novim-fundamentom-rossiiskoi-ekonomiki",
+    "lang": "RU",
+    "year": "2026",
+    "added": "2026-10-18"
+  },
+  {
+    "id": 86,
+    "topic": "Total Experience",
+    "title": "Employee experience (EX) and Customer experience (CX) – both are the essential components of an exceptional Total experience (TX) for your enterprise",
+    "type": "Статья",
+    "summary": "LinkedIn-статья Ника Парма (Tata Communications) о прямой связи вовлечённости сотрудников с качеством клиентского сервиса в рамках целостной стратегии Total Experience, объединяющей EX, CX и партнёрский опыт.",
+    "source": "LinkedIn / Nick Parmar, Tata Communications",
+    "url": "https://www.linkedin.com/pulse/employee-experience-ex-customer-cx-both-essential-total-nick-parmar",
+    "lang": "EN",
+    "year": "2023",
+    "added": "2026-10-18"
+  },
+  {
+    "id": 87,
+    "topic": "Total Experience",
+    "title": "A Masterclass in Bank Total Experience In One Graphic",
+    "type": "Статья",
+    "summary": "LinkedIn-статья Криса Николса о 10 ключевых элементах стратегии Total Experience для банков (эмпатия, метрики, устранение разрозненности между отделами) на примере провалившейся цифровой трансформации, игнорировавшей опыт сотрудников.",
+    "source": "LinkedIn / Chris Nichols",
+    "url": "https://www.linkedin.com/pulse/masterclass-bank-total-experience-one-graphic-chris-nichols",
+    "lang": "EN",
+    "year": "2022",
+    "added": "2026-10-18"
   }
 ]
