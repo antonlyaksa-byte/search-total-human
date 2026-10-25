@@ -1042,5 +1042,101 @@
     "lang": "EN",
     "year": "2022",
     "added": "2026-10-18"
+  },
+  {
+    "id": 88,
+    "topic": "Total Experience",
+    "title": "Forrester's Global Total Experience Score Rankings, 2026",
+    "type": "Отчёт",
+    "summary": "Полный отчёт Forrester с оценками Total Experience Score для 406 брендов в 13 странах; методология объединяет метрики бренда, клиентского и сотруднического опыта для оценки конкурентных позиций компаний.",
+    "source": "Forrester",
+    "url": "https://www.forrester.com/report/forresters-global-total-experience-score-rankings-2026/RES196454",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 89,
+    "topic": "Total Experience",
+    "title": "Power Growth With Your Total Experience",
+    "type": "Статья",
+    "summary": "Аналитик Forrester Томас Гюссон объясняет, как одновременное усиление клиентского опыта и бренд-капитала в рамках «total experience» может увеличить влияние на выручку до 3,5 раза.",
+    "source": "Forrester",
+    "url": "https://www.forrester.com/blogs/power-growth-with-your-total-experience/",
+    "lang": "EN",
+    "year": "2025",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 90,
+    "topic": "Человекоцентричность",
+    "title": "Человекоцентричность в отечественном и зарубежном научном дискурсе",
+    "type": "Статья",
+    "summary": "Научная статья НИУ ВШЭ (В. Соловьев, О. Самольянов, Г. Стрюк) сопоставляет трактовки человекоцентричности в российском и западном научном дискурсе и описывает модели внедрения человекоцентричных подходов в организациях.",
+    "source": "НИУ ВШЭ / publications.hse.ru",
+    "url": "https://publications.hse.ru/en/articles/1119163775",
+    "lang": "RU",
+    "year": "2024",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 91,
+    "topic": "Человекоцентричность",
+    "title": "Принципы человекоцентричности в современной России: социально-философский анализ",
+    "type": "Статья",
+    "summary": "О.А. Самольянов анализирует человекоцентричные принципы международных стандартов ISO через призму России как «цивилизации-государства», сопоставляя традиционные духовные ценности с глобальными концепциями человекоцентричности.",
+    "source": "НИУ ВШЭ / publications.hse.ru",
+    "url": "https://publications.hse.ru/articles/1119427812",
+    "lang": "RU",
+    "year": "2024",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 92,
+    "topic": "Человекоцентричность",
+    "title": "Радикальная человекоцентричность. Ставка на силу разнообразия",
+    "type": "Статья",
+    "summary": "Д.Е. Николаев и А.Г. Асмолов представляют концепцию организационной трансформации, в которой человек рассматривается как незавершённый, смыслопорождающий субъект, а разнообразие — как движущая сила адаптивности и устойчивости организации в условиях неопределённости.",
+    "source": "Миры и смыслы Александра Асмолова",
+    "url": "https://asmolovpsy.ru/2026/05/13/radikalnaya-chelovekoczentrichnost-stavka-na-silu-raznoobraziya/",
+    "lang": "RU",
+    "year": "2026",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 93,
+    "topic": "Total Experience",
+    "title": "Are You Experienced?",
+    "type": "Статья",
+    "summary": "LinkedIn-статья ServiceNow о взаимосвязи клиентского (CX) и сотруднического (EX) опыта: со ссылкой на исследование ThoughtLab показано, что согласованное управление CX и EX в рамках Total Experience повышает удержание клиентов, качество обслуживания и безопасность труда.",
+    "source": "LinkedIn / ServiceNow",
+    "url": "https://www.linkedin.com/pulse/you-experienced-servicenow",
+    "lang": "EN",
+    "year": "2022",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 94,
+    "topic": "Человекоцентричность",
+    "title": "Human-Centric Organizations - What they really are, and how to build them",
+    "type": "Статья",
+    "summary": "LinkedIn-статья Пола Слейтера о человекоцентричности как ключевой линзе для трансформации организации (люди, процессы, технологии), а не маркетинговой инициативе — с акцентом на развитие устойчивых навыков сотрудников и роль лидерства.",
+    "source": "LinkedIn / Paul Slater",
+    "url": "https://www.linkedin.com/pulse/human-centric-organizations-what-really-how-build-them-paul-slater-i8v6e",
+    "lang": "EN",
+    "year": "2025",
+    "added": "2026-10-25"
+  },
+  {
+    "id": 95,
+    "topic": "Total Experience",
+    "title": "To Get Superior CX, Utilities Should Focus on EX",
+    "type": "Статья",
+    "summary": "LinkedIn-статья ibex Utilities о том, как опыт сотрудников (EX) становится фундаментом превосходного клиентского опыта (CX) в коммунальном секторе — по аналогии с бизнес-моделью Disney.",
+    "source": "LinkedIn / ibex Utilities",
+    "url": "https://www.linkedin.com/pulse/get-superior-cx-utilities-should-focus-ex-ibex-utilities",
+    "lang": "EN",
+    "year": "2023",
+    "added": "2026-10-25"
   }
 ]
