@@ -1138,5 +1138,77 @@
     "lang": "EN",
     "year": "2023",
     "added": "2026-10-25"
+  },
+  {
+    "id": 96,
+    "topic": "Total Experience",
+    "title": "Use Forrester's Total Experience Score And Growth Grid To Accelerate Revenue",
+    "type": "Статья",
+    "summary": "Forrester описывает фреймворк Total Experience Growth Grid, который делит бренды на четыре квадранта (лидеры, «утекающие», «плато», отстающие) в зависимости от способности привлекать и удерживать клиентов, помогая выработать целевую стратегию роста на основе Total Experience Score.",
+    "source": "Forrester",
+    "url": "https://www.forrester.com/blogs/use-forresters-total-experience-score-and-growth-grid-to-accelerate-revenue/",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-11-01"
+  },
+  {
+    "id": 97,
+    "topic": "Total Experience",
+    "title": "The Shift to Focusing on the Total Experience",
+    "type": "Пост",
+    "summary": "LinkedIn-пост Хизер Рот (Slalom) о том, как интеграция клиентского и сотруднического опыта в рамках Total Experience раскрывает потенциал сотрудников и повышает ценность для клиентов — по итогам совместного блога с Николь Бойд.",
+    "source": "LinkedIn / Heather Roth, Slalom",
+    "url": "https://www.linkedin.com/posts/hthrroth_the-shift-to-focusing-on-the-total-experience-activity-7071498205502320640-FJxw",
+    "lang": "EN",
+    "year": "2023",
+    "added": "2026-11-01"
+  },
+  {
+    "id": 98,
+    "topic": "Человекоцентричность",
+    "title": "Human-led, AI-powered: How high-performing teams unlock AI value",
+    "type": "Видео",
+    "summary": "Вебкаст Deloitte по итогам исследования Human Capital Trends 2026: организации с человекоцентричным дизайном командной работы и ролей, а не только технологическим подходом к ИИ, в 1,6 раза чаще превышают ожидания по отдаче от инвестиций в ИИ.",
+    "source": "Deloitte",
+    "url": "https://www.deloitte.com/us/en/dbriefs-webcasts/human-led-ai-powered-how-high-performing-teams-unlock-ai-value0.html",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-11-01"
+  },
+  {
+    "id": 99,
+    "topic": "Человекоцентричность",
+    "title": "НИУ ВШЭ и Beyond Taylor представили исследование управленческих вызовов российского бизнеса в 2026 году",
+    "type": "Статья",
+    "summary": "Совместное исследование НИУ ВШЭ и Beyond Taylor показывает, что компании сталкиваются прежде всего с внутренними управленческими сбоями, а не внешними проблемами; человекоцентричный подход к сотрудникам рассматривается как условие устойчивости бизнеса в нестабильной среде.",
+    "source": "НИУ ВШЭ / Beyond Taylor",
+    "url": "https://www.hse.ru/news/expertise/1164957773.html",
+    "lang": "RU",
+    "year": "2026",
+    "added": "2026-11-01"
+  },
+  {
+    "id": 100,
+    "topic": "Человекоцентричность",
+    "title": "Gartner Identifies the Top Future of Work Trends for CHROs in 2026",
+    "type": "Пресс-релиз",
+    "summary": "Gartner представил девять тенденций будущего труда для CHRO на 2026 год: человекоцентричный подход к сокращениям персонала, направление ИИ на снижение усилий сотрудников вместо быстрых побед и усиление роли человека в процессах рекрутинга.",
+    "source": "Gartner",
+    "url": "https://www.gartner.com/en/newsroom/press-releases/2026-01-12-gartner-identifies-the-top-future-of-work-trends-for-chros-in-2026",
+    "lang": "EN",
+    "year": "2026",
+    "added": "2026-11-01"
+  },
+  {
+    "id": 101,
+    "topic": "Человекоцентричность",
+    "title": "The Human-Centric Organization Transformational Blueprint: Assess, Empower, Integrate",
+    "type": "Статья",
+    "summary": "LinkedIn-статья Тилдет Варон представляет трёхэтапный план человекоцентричной трансформации организации (оценка, расширение возможностей сотрудников, интеграция новых практик), повышающий вовлечённость, устойчивость и удержание персонала.",
+    "source": "LinkedIn / Tildet Varon",
+    "url": "https://www.linkedin.com/pulse/human-centric-organization-blueprint-assess-empower-integrate-varon",
+    "lang": "EN",
+    "year": "2021",
+    "added": "2026-11-01"
   }
 ]
