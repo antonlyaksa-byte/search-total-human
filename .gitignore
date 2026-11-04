@@ -16,3 +16,6 @@ Thumbs.db
 
 # Output files (regenerated from data)
 output/*.xlsx
+
+# Local monitor logs
+logs/
